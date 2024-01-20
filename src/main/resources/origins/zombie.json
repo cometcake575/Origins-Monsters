@@ -1,0 +1,19 @@
+{
+	"powers": [
+		"monsterorigins:land_night_vision",
+		"monsterorigins:potion_swap",
+		"monsterorigins:undead_ally",
+		"monsterorigins:undead",
+		"monsterorigins:burn_in_day",
+		"monsterorigins:slowness",
+		"monsterorigins:zombie_hunger",
+		"monsterorigins:transform_into_husk_and_drowned",
+		"origins:carnivore"
+	],
+	"icon": {
+		"item": "minecraft:rotten_flesh"
+	},
+	"order": 1,
+	"impact": 1,
+	"description": "Zombie"
+}

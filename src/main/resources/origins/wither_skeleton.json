@@ -1,0 +1,19 @@
+{
+	"powers": [
+		"monsterorigins:apply_wither_effect",
+		"monsterorigins:potion_swap",
+		"monsterorigins:undead_ally",
+		"monsterorigins:wither_immunity",
+		"monsterorigins:fire_immunity",
+		"monsterorigins:undead",
+		"monsterorigins:skeleton_body",
+		"monsterorigins:no_saturation",
+		"origins:nether_spawn"
+	],
+	"icon": {
+		"item": "minecraft:coal"
+	},
+	"order": 1,
+	"impact": 1,
+	"description": "WitherSkeleton"
+}

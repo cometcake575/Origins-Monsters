@@ -1,0 +1,22 @@
+{
+	"powers": [
+		"monsterorigins:infinite_arrows",
+		"monsterorigins:potion_swap",
+		"monsterorigins:undead_ally",
+		"monsterorigins:better_aim",
+		"monsterorigins:slowness_arrows",
+		"monsterorigins:undead",
+		"monsterorigins:burn_in_day",
+		"monsterorigins:skeleton_body",
+		"monsterorigins:slowness",
+		"monsterorigins:double_fire_damage",
+		"monsterorigins:transform_into_skeleton"
+	],
+	"icon": {
+		"item": "minecraft:ice"
+	},
+	"unchoosable": true,
+	"order": 1,
+	"impact": 1,
+	"description": "Stray"
+}

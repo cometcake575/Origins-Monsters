@@ -1,0 +1,19 @@
+{
+	"powers": [
+		"monsterorigins:infinite_arrows",
+		"monsterorigins:potion_swap",
+		"monsterorigins:undead_ally",
+		"monsterorigins:better_aim",
+		"monsterorigins:undead",
+		"monsterorigins:burn_in_day",
+		"monsterorigins:skeleton_body",
+		"monsterorigins:no_saturation",
+		"monsterorigins:transform_into_stray"
+	],
+	"icon": {
+		"item": "minecraft:bone"
+	},
+	"order": 1,
+	"impact": 1,
+	"description": "Skeleton"
+}
