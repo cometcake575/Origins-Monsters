@@ -27,7 +27,8 @@ public class OriginsMonsters extends OriginsAddon {
                 new DoubleDamage(),
                 new SonicBoom(),
                 new WaterVision(),
-                new LandNightVision()
+                new LandNightVision(),
+                new DoubleFireDamage()
         );
     }
 }
