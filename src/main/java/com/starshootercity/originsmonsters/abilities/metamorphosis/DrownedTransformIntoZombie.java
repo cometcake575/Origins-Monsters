@@ -10,6 +10,8 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -46,6 +48,7 @@ public class DrownedTransformIntoZombie implements VisibleAbility, Listener {
     }
 
     private void switchToZombie(Player player) {
+        player.getLocation().getWorld().playSound(player, Sound.ENTITY_ZOMBIE_CONVERTED_TO_DROWNED, SoundCategory.PLAYERS, 1, 1);
         OriginSwapper.setOrigin(player, OriginLoader.originNameMap.get("zombie"), PlayerSwapOriginEvent.SwapReason.PLUGIN, false);
         player.sendMessage(Component.text("You have transformed into a zombie!")
                 .color(NamedTextColor.YELLOW));

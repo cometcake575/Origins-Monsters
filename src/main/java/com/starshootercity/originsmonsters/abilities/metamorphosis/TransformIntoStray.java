@@ -10,6 +10,8 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -56,6 +58,7 @@ public class TransformIntoStray implements VisibleAbility, Listener {
     }
 
     private void switchToStray(Player player) {
+        player.getLocation().getWorld().playSound(player, Sound.ENTITY_SKELETON_CONVERTED_TO_STRAY, SoundCategory.PLAYERS, 1, 1);
         OriginSwapper.setOrigin(player, OriginLoader.originNameMap.get("stray"), PlayerSwapOriginEvent.SwapReason.PLUGIN, false);
         player.sendMessage(Component.text("You have transformed into a stray!")
                 .color(NamedTextColor.YELLOW));
