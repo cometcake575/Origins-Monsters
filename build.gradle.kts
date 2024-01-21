@@ -1,8 +1,9 @@
 plugins {
     id("java")
+    id("io.papermc.paperweight.userdev") version "1.5.11"
 }
 
-group = "com.starshootercity"
+group = "com.starshootercity.originsmonsters"
 version = "1.0.0"
 
 repositories {
@@ -16,6 +17,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
     compileOnly(files("libs/Origins-Reborn-2.0.2.jar"))
+    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
 }
 
 tasks.test {

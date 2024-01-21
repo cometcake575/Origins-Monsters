@@ -8,6 +8,7 @@
 		"monsterorigins:burn_in_day",
 		"monsterorigins:skeleton_body",
 		"monsterorigins:no_saturation",
+		"monsterorigins:metamorphosis_temperature",
 		"monsterorigins:transform_into_stray"
 	],
 	"icon": {

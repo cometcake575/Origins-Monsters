@@ -7,8 +7,10 @@
 		"monsterorigins:undead",
 		"monsterorigins:burn_in_day",
 		"monsterorigins:zombie_hunger",
-		"monsterorigins:surface_slowness",
+		"monsterorigins:slowness",
+		"monsterorigins:land_slowness",
 		"monsterorigins:drowned_transform_into_zombie",
+		"monsterorigins:metamorphosis_temperature",
 		"origins:carnivore"
 	],
 	"icon": "minecraft:trident",

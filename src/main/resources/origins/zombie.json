@@ -8,6 +8,7 @@
 		"monsterorigins:slowness",
 		"monsterorigins:zombie_hunger",
 		"monsterorigins:transform_into_husk_and_drowned",
+		"monsterorigins:metamorphosis_temperature",
 		"origins:carnivore"
 	],
 	"icon": {

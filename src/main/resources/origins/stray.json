@@ -1,6 +1,7 @@
 {
 	"powers": [
 		"monsterorigins:infinite_arrows",
+		"monsterorigins:freeze_immune",
 		"monsterorigins:potion_swap",
 		"monsterorigins:undead_ally",
 		"monsterorigins:better_aim",
@@ -10,6 +11,7 @@
 		"monsterorigins:skeleton_body",
 		"monsterorigins:slowness",
 		"monsterorigins:double_fire_damage",
+		"monsterorigins:metamorphosis_temperature",
 		"monsterorigins:transform_into_skeleton"
 	],
 	"icon": {

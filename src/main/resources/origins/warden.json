@@ -1,10 +1,12 @@
 {
 	"powers": [
-		"moborigins:sense_movement",
-		"moborigins:increased_damage",
-		"moborigins:sonic_boom",
-		"moborigins:double_health",
-		"moborigins:blindness"
+		"monsterorigins:sense_movement",
+		"monsterorigins:blindness",
+		"monsterorigins:double_damage",
+		"monsterorigins:sonic_boom",
+		"monsterorigins:double_health",
+		"origins:natural_armor",
+		"origins:no_shield"
 	],
 	"icon": {
 		"item": "minecraft:sculk"
