@@ -20,6 +20,6 @@ public class LandNightVision extends CatVision {
 
     @Override
     public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Dark Vision", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+        return OriginSwapper.LineData.makeLineFor("Dark Sight", OriginSwapper.LineData.LineComponent.LineType.TITLE);
     }
 }
