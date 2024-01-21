@@ -46,7 +46,12 @@ public class OriginsMonsters extends OriginsAddon {
                 new SkeletonBody(),
                 new Slowness(),
                 new LandSlowness(),
-                new WaterBreathing()
+                new WaterBreathing(),
+                new SwimSpeed(),
+                new FreezeImmune(),
+                new HeatSlowness(),
+                new BetterAim(),
+                new ColdSlowness()
         );
     }
 }
