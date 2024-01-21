@@ -48,8 +48,7 @@ public class TransformIntoStray implements VisibleAbility, Listener {
                 } else if (Bukkit.getCurrentTick() - lastHadLowFreezeTime.getOrDefault(player, Bukkit.getCurrentTick()) >= 300) {
                     MetamorphosisTemperature.setTemperature(player, 25);
                     switchToStray(player);
-                }
-                if (MetamorphosisTemperature.getTemperature(player) <= 25) {
+                } else if (MetamorphosisTemperature.getTemperature(player) <= 25) {
                     switchToStray(player);
                 }
             });

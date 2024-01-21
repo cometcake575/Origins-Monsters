@@ -1,13 +1,12 @@
 {
 	"powers": [
 		"monsterorigins:infinite_arrows",
-		"monsterorigins:potion_swap",
 		"monsterorigins:undead_ally",
 		"monsterorigins:better_aim",
 		"monsterorigins:undead",
 		"monsterorigins:burn_in_day",
 		"monsterorigins:skeleton_body",
-		"monsterorigins:no_saturation",
+		"monsterorigins:half_max_saturation",
 		"monsterorigins:metamorphosis_temperature",
 		"monsterorigins:transform_into_stray"
 	],

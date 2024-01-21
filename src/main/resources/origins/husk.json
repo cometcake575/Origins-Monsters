@@ -2,7 +2,6 @@
 	"powers": [
 		"monsterorigins:land_night_vision",
 		"monsterorigins:apply_hunger_effect",
-		"monsterorigins:potion_swap",
 		"monsterorigins:undead_ally",
 		"monsterorigins:undead",
 		"monsterorigins:slowness",

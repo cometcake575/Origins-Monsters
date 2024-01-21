@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class OriginsMonsters extends OriginsAddon {
     @Override
     public @NotNull List<Ability> getAbilities() {
@@ -28,7 +29,24 @@ public class OriginsMonsters extends OriginsAddon {
                 new SonicBoom(),
                 new WaterVision(),
                 new LandNightVision(),
-                new DoubleFireDamage()
+                new DoubleFireDamage(),
+                new BurnInDay(),
+                new Undead(),
+                new TridentExpert(),
+                new ZombieHunger(),
+                new WitherImmunity(),
+                new HalfMaxSaturation(),
+                new GuardianAlly(),
+                new WaterCombatant(),
+                new UndeadAlly(),
+                new ApplyWitherEffect(),
+                new InfiniteArrows(),
+                new SlownessArrows(),
+                new ApplyHungerEffect(),
+                new SkeletonBody(),
+                new Slowness(),
+                new LandSlowness(),
+                new WaterBreathing()
         );
     }
 }
