@@ -3,6 +3,7 @@ package com.starshootercity.originsmonsters;
 import com.starshootercity.OriginsAddon;
 import com.starshootercity.abilities.Ability;
 import com.starshootercity.originsmonsters.abilities.*;
+import com.starshootercity.originsmonsters.abilities.ZombieTouch;
 import com.starshootercity.originsmonsters.abilities.metamorphosis.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,7 +52,16 @@ public class OriginsMonsters extends OriginsAddon {
                 new FreezeImmune(),
                 new HeatSlowness(),
                 new BetterAim(),
-                new ColdSlowness()
+                new ColdSlowness(),
+                new ZombieTouch(),
+                new ScareVillagers(),
+                new TransformIntoZombifiedPiglin(),
+                new TransformIntoPiglin(),
+                new BetterGoldArmour(),
+                new BetterGoldWeapons(),
+                new ZombifiedPiglinAllies(),
+                new SuperBartering(),
+                new PiglinAlly()
         );
     }
 }

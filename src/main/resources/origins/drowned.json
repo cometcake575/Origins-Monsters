@@ -9,6 +9,8 @@
 		"monsterorigins:undead",
 		"monsterorigins:burn_in_day",
 		"monsterorigins:zombie_hunger",
+		"monsterorigins:zombie_touch",
+		"monsterorigins:scare_villagers",
 		"monsterorigins:slowness",
 		"monsterorigins:land_slowness",
 		"monsterorigins:drowned_transform_into_zombie",

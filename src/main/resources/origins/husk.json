@@ -7,6 +7,8 @@
 		"monsterorigins:slowness",
 		"monsterorigins:cold_slowness",
 		"monsterorigins:zombie_hunger",
+		"monsterorigins:zombie_touch",
+		"monsterorigins:scare_villagers",
 		"monsterorigins:husk_transform_into_zombie",
 		"origins:carnivore"
 	],
