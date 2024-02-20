@@ -1,6 +1,7 @@
 package com.starshootercity.originsmonsters.abilities;
 
 import com.starshootercity.OriginSwapper;
+import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
@@ -57,10 +58,12 @@ public class SuperBartering implements VisibleAbility, Listener {
         Piglin piglin = ((CraftPiglin) event.getEntity()).getHandle();
         Optional<Player> optional = piglin.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER);
         if (optional.isEmpty()) return;
-        int num = random.nextInt(1, 4);
-        for (int i = 0; i < num; i++) {
-            Collection<ItemStack> items = getBarterResponseItems(piglin);
-            throwItemsTowardPlayer(piglin, optional.get(), items);
-        }
+        AbilityRegister.runForAbility(optional.get().getBukkitEntity(), getKey(), () -> {
+            int num = random.nextInt(1, 4);
+            for (int i = 0; i < num; i++) {
+                Collection<ItemStack> items = getBarterResponseItems(piglin);
+                throwItemsTowardPlayer(piglin, optional.get(), items);
+            }
+        });
     }
 }
