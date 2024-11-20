@@ -1,9 +1,12 @@
 package com.starshootercity.originsmonsters.abilities;
 
 import com.starshootercity.OriginSwapper;
+import com.starshootercity.OriginsReborn;
 import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.AttributeModifierAbility;
 import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.cooldowns.CooldownAbility;
+import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.events.PlayerLeftClickEvent;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import io.papermc.paper.event.player.PlayerStopUsingItemEvent;
@@ -29,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TridentExpert implements VisibleAbility, Listener, AttributeModifierAbility {
+public class TridentExpert implements VisibleAbility, Listener, AttributeModifierAbility, CooldownAbility {
     @Override
     public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
         return OriginSwapper.LineData.makeLineFor("You're a master of the trident, dealing +2 damage when you throw it, and +2 melee damage with it. You can also use channeling without thunder, and use riptide without rain/water at the price of extra durability.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
@@ -109,7 +112,8 @@ public class TridentExpert implements VisibleAbility, Listener, AttributeModifie
     public void onPlayerLeftClick(PlayerLeftClickEvent event) {
         if (List.of(Material.AIR, Material.TRIDENT).contains(event.getPlayer().getInventory().getItemInMainHand().getType())) {
             AbilityRegister.runForAbility(event.getPlayer(), getKey(), () -> {
-                if (Bukkit.getCurrentTick() - lastTridentEnabledTime.getOrDefault(event.getPlayer(), Bukkit.getCurrentTick() - 1200) < 1200) return;
+                if (hasCooldown(event.getPlayer())) return;
+                setCooldown(event.getPlayer());
                 lastTridentEnabledTime.put(event.getPlayer(), Bukkit.getCurrentTick());
             });
         }
@@ -117,7 +121,7 @@ public class TridentExpert implements VisibleAbility, Listener, AttributeModifie
 
     @Override
     public @NotNull Attribute getAttribute() {
-        return Attribute.GENERIC_ATTACK_DAMAGE;
+        return OriginsReborn.getNMSInvoker().getAttackDamageAttribute();
     }
 
     @Override
@@ -199,5 +203,10 @@ public class TridentExpert implements VisibleAbility, Listener, AttributeModifie
             world.playSound(player.getLocation(), soundeffect, 1, 1);
 
         }
+    }
+
+    @Override
+    public Cooldowns.CooldownInfo getCooldownInfo() {
+        return new Cooldowns.CooldownInfo(400, "trident_expert", true);
     }
 }

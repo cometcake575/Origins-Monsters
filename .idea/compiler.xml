@@ -3,6 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="19">
       <module name="arunkapila.Downloads.Origins-Monsters.test" target="21" />
+      <module name="Origins-Monsters.1.20.5" target="21" />
+      <module name="Origins-Monsters.1.20.5.main" target="17" />
+      <module name="Origins-Monsters.1.20.5.test" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

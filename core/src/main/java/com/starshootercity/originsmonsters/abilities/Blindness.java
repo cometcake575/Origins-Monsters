@@ -35,14 +35,13 @@ public class Blindness implements VisibleAbility, Listener {
     public void onServerTickEnd(ServerTickEndEvent event) {
         if (event.getTickNumber() % 5 != 0) return;
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.setGravity(true);
             AbilityRegister.runForAbility(player, getKey(), () -> {
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                     player.removePotionEffect(PotionEffectType.BLINDNESS);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, -1, 0, false, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 240, 0, false, false));
                 } else {
                     player.removePotionEffect(PotionEffectType.DARKNESS);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, -1, 0, false, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 240, 0, false, false));
                 }
             });
         }

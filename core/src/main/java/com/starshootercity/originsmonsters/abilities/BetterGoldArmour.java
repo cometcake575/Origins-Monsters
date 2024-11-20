@@ -2,6 +2,7 @@ package com.starshootercity.originsmonsters.abilities;
 
 import com.destroystokyo.paper.MaterialTags;
 import com.starshootercity.OriginSwapper;
+import com.starshootercity.OriginsReborn;
 import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.AttributeModifierAbility;
 import com.starshootercity.abilities.VisibleAbility;
@@ -21,7 +22,7 @@ import java.util.List;
 public class BetterGoldArmour implements VisibleAbility, AttributeModifierAbility, Listener {
     @Override
     public @NotNull Attribute getAttribute() {
-        return Attribute.GENERIC_ARMOR;
+        return OriginsReborn.getNMSInvoker().getArmorAttribute();
     }
 
     @Override

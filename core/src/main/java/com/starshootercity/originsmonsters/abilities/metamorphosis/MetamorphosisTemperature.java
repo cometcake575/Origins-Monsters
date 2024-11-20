@@ -2,8 +2,9 @@ package com.starshootercity.originsmonsters.abilities.metamorphosis;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.Ability;
 import com.starshootercity.abilities.AbilityRegister;
+import com.starshootercity.cooldowns.CooldownAbility;
+import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.events.PlayerSwapOriginEvent;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import net.kyori.adventure.key.Key;
@@ -17,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class MetamorphosisTemperature implements Ability, Listener {
+public class MetamorphosisTemperature implements CooldownAbility, Listener {
     @Override
     public @NotNull Key getKey() {
         return Key.key("monsterorigins:metamorphosis_temperature");
@@ -25,12 +26,15 @@ public class MetamorphosisTemperature implements Ability, Listener {
 
     private static final NamespacedKey playerTemperatureKey = new NamespacedKey(OriginsMonsters.getInstance(), "player-temperature");
 
+    public static MetamorphosisTemperature INSTANCE = new MetamorphosisTemperature();
+
     public static int getTemperature(Player player) {
         return player.getPersistentDataContainer().getOrDefault(playerTemperatureKey, PersistentDataType.INTEGER, 50);
     }
 
     public static void setTemperature(Player player, int amount) {
         player.getPersistentDataContainer().set(playerTemperatureKey, PersistentDataType.INTEGER, Math.max(0, Math.min(amount, 100)));
+        INSTANCE.setCooldown(player, getTemperature(player));
     }
     
     @EventHandler
@@ -41,7 +45,7 @@ public class MetamorphosisTemperature implements Ability, Listener {
                 double blockTemp = player.getLocation().getBlock().getTemperature();
                 if (blockTemp <= 0.15) {
                     setTemperature(player, getTemperature(player) - 1);
-                } else if (blockTemp >= 2 && !OriginsReborn.getNMSInvoker().isUnderWater(player)) {
+                } else if (blockTemp >= 1.75 && !OriginsReborn.getNMSInvoker().isUnderWater(player)) {
                     setTemperature(player, getTemperature(player) + 1);
                 }
             });
@@ -56,5 +60,10 @@ public class MetamorphosisTemperature implements Ability, Listener {
                 PlayerSwapOriginEvent.SwapReason.COMMAND,
                 PlayerSwapOriginEvent.SwapReason.INITIAL
         ).contains(event.getReason())) setTemperature(event.getPlayer(), 50);
+    }
+
+    @Override
+    public Cooldowns.CooldownInfo getCooldownInfo() {
+        return new Cooldowns.CooldownInfo(100, "metamorphosis_temperature", true, true);
     }
 }

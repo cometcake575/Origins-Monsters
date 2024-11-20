@@ -1,0 +1,35 @@
+name: ReforgedSMP-Reworked
+version: 1.0.0
+main: com.reforgedsmpreworked.ReforgedSMPReworkedMain
+description: ReforgedSMP Plugin
+api-version: '1.21'
+
+permissions:
+  reforgedsmp.default:
+    description: Use the reforged sword command
+    default: true
+  reforgedsmp.admin:
+    description: Use admin commands
+    default: op
+
+commands:
+  cooldownreset:
+    description: Reset all cooldowns
+    permission: reforgedsmp.admin
+    usage: /<command>
+  itemgive:
+    description: Gives a custom item
+    permission: reforgedsmp.admin
+    usage: /<command> <item>
+  forceupgrade:
+    description: Upgrade held item
+    permission: reforgedsmp.admin
+    usage: /<command>
+  reforgedsword:
+    description: Open the reforged sword GUI
+    permission: reforgedsmp.default
+    usage: /<command>
+  upgrade:
+    description: Open the upgrade GUI
+    permission: reforgedsmp.default
+    usage: /<command>

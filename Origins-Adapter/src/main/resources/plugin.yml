@@ -1,0 +1,9 @@
+name: Origins-Adapter
+version: 0.0.1
+main: com.starshooterstudios.originsadapter.OriginsAdapter
+description: WIP Origins-Reborn addon allowing you to load custom origins
+api-version: '1.21'
+author: cometcake575
+
+depend:
+  - Origins-Reborn

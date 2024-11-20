@@ -20,15 +20,18 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20.3/Origins-Monsters.1.20.3.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20.3/Origins-Monsters.1.20.3.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20.4/Origins-Monsters.1.20.4.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20.4/Origins-Monsters.1.20.4.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20.4/Origins-Monsters.1.20.4.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20.4/Origins-Monsters.1.20.4.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20.5/Origins-Monsters.1.20.5.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20.5/Origins-Monsters.1.20.5.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20.5/Origins-Monsters.1.20.5.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20.5/Origins-Monsters.1.20.5.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20.6/Origins-Monsters.1.20.6.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20.6/Origins-Monsters.1.20.6.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20.6/Origins-Monsters.1.20.6.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20.6/Origins-Monsters.1.20.6.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20/Origins-Monsters.1.20.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20/Origins-Monsters.1.20.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.20/Origins-Monsters.1.20.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1.20/Origins-Monsters.1.20.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.21.1/Origins-Monsters.1.21.1.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1.21.1/Origins-Monsters.1.21.1.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.21.1/Origins-Monsters.1.21.1.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1.21.1/Origins-Monsters.1.21.1.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.21.3/Origins-Monsters.1.21.3.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1.21.3/Origins-Monsters.1.21.3.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.21.3/Origins-Monsters.1.21.3.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1.21.3/Origins-Monsters.1.21.3.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.21/Origins-Monsters.1.21.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1.21/Origins-Monsters.1.21.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1.21/Origins-Monsters.1.21.test.iml" filepath="$PROJECT_DIR$/.idea/modules/1.21/Origins-Monsters.1.21.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Origins-Monsters.core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Origins-Monsters.core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/Origins-Monsters.core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/Origins-Monsters.core.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/version/Origins-Monsters.version.main.iml" filepath="$PROJECT_DIR$/.idea/modules/version/Origins-Monsters.version.main.iml" />
     </modules>
   </component>

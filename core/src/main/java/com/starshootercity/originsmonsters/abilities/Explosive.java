@@ -1,13 +1,13 @@
 package com.starshootercity.originsmonsters.abilities;
 
 import com.starshootercity.OriginSwapper;
-import com.starshootercity.OriginsReborn;
 import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.cooldowns.CooldownAbility;
+import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Explosive implements VisibleAbility, Listener {
+public class Explosive implements VisibleAbility, Listener, CooldownAbility {
     @Override
     public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
         return OriginSwapper.LineData.makeLineFor("You can sacrifice some of your health to create an explosion every 15 seconds.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
@@ -34,16 +34,15 @@ public class Explosive implements VisibleAbility, Listener {
         return Key.key("monsterorigins:explosive");
     }
     private final Map<Player, Integer> lastToggledSneak = new HashMap<>();
-    private final Map<Player, Integer> explosiveCooldown = new HashMap<>();
 
     @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
         AbilityRegister.runForAbility(event.getPlayer(), getKey(), () -> {
-            if (Bukkit.getCurrentTick() - explosiveCooldown.getOrDefault(event.getPlayer(), Bukkit.getCurrentTick() - 300) < 300) return;
+            if (hasCooldown(event.getPlayer())) return;
             if (!event.isSneaking()) return;
             if (Bukkit.getCurrentTick() - lastToggledSneak.getOrDefault(event.getPlayer(), Bukkit.getCurrentTick() - 11) <= 10) {
-                explosiveCooldown.put(event.getPlayer(), Bukkit.getCurrentTick());
-                event.getPlayer().getLocation().createExplosion(event.getPlayer(), 3, false);
+                setCooldown(event.getPlayer());
+                event.getPlayer().getLocation().createExplosion(event.getPlayer(), 3, false, OriginsMonsters.getInstance().getConfig().getBoolean("creeper-explosion-breaks-blocks", true));
                 OriginsMonsters.getNMSInvoker().dealExplosionDamage(event.getPlayer(), 8);
             } else {
                 lastToggledSneak.put(event.getPlayer(), Bukkit.getCurrentTick());
@@ -51,5 +50,8 @@ public class Explosive implements VisibleAbility, Listener {
         });
     }
 
-    NamespacedKey key = OriginsReborn.getCooldowns().registerCooldown(new NamespacedKey(OriginsMonsters.getInstance(), "explosive-cooldown"), );
+    @Override
+    public Cooldowns.CooldownInfo getCooldownInfo() {
+        return new Cooldowns.CooldownInfo(300, "explosive");
+    }
 }
