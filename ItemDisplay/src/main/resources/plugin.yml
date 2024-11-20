@@ -1,5 +1,0 @@
-name: ItemDisplay
-version: 1.0.0
-main: com.starshooterstudios.itemdisplay.ItemDisplayMain
-description: Display items in chat with [item]!
-api-version: '1.21'
