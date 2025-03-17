@@ -1,9 +1,8 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import com.starshootercity.originsmonsters.OriginsMonsters;
+import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Location;
 import org.bukkit.entity.Piglin;
@@ -16,17 +15,19 @@ import org.bukkit.loot.LootContext;
 import org.bukkit.loot.LootTables;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Random;
 
 public class SuperBartering implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You're brilliant at bartering after a lifetime of experience, every time you barter you get between 2 and 5 times as many valuables.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You're brilliant at bartering after a lifetime of experience, every time you barter you get between 2 and 5 times as many valuables.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Bartering Master", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Bartering Master";
     }
 
     @Override
@@ -52,15 +53,25 @@ public class SuperBartering implements VisibleAbility, Listener {
 
     @EventHandler
     public void onPiglinBarter(PiglinBarterEvent event) {
-        Player player = OriginsMonsters.getNMSInvoker().getNearestVisiblePlayer(event.getEntity());
-        //Optional<Player> optional = piglin.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER);
-        if (player == null) return;
-        AbilityRegister.runForAbility(player, getKey(), () -> {
-            int num = random.nextInt(1, 4);
+        Player p = OriginsMonsters.getNMSInvoker().getNearestVisiblePlayer(event.getEntity());
+        if (p == null) return;
+        runForAbility(p, player -> {
+            int num = random.nextInt(
+                    getConfigOption(OriginsMonsters.getInstance(), minimumAmount, ConfigManager.SettingType.INTEGER),
+                    getConfigOption(OriginsMonsters.getInstance(), maximumAmount, ConfigManager.SettingType.INTEGER) + 1);
             for (int i = 0; i < num; i++) {
                 Collection<ItemStack> items = getBarterResponseItems(event.getEntity());
                 throwItemsTowardPlayer(event.getEntity(), player, items);
             }
         });
+    }
+
+    private final String minimumAmount = "minimum_amount";
+    private final String maximumAmount = "maximum_amount";
+
+    @Override
+    public void initialize() {
+        registerConfigOption(OriginsMonsters.getInstance(), minimumAmount, Collections.singletonList("The minimum number of extra barters"), ConfigManager.SettingType.INTEGER, 1);
+        registerConfigOption(OriginsMonsters.getInstance(), maximumAmount, Collections.singletonList("The maximum number of extra barters"), ConfigManager.SettingType.INTEGER, 3);
     }
 }

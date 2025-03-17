@@ -1,6 +1,5 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
 import com.starshootercity.abilities.AttributeModifierAbility;
 import com.starshootercity.abilities.VisibleAbility;
@@ -9,8 +8,6 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class HeatSlowness implements VisibleAbility, AttributeModifierAbility {
     @Override
@@ -29,13 +26,13 @@ public class HeatSlowness implements VisibleAbility, AttributeModifierAbility {
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Your cold body conflicts with warmer biomes, slowing you down.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Your cold body conflicts with warmer biomes, slowing you down.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Cold Body", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Cold Body";
     }
 
     @Override

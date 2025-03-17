@@ -1,9 +1,7 @@
 package com.starshootercity.originsmonsters.abilities;
 
 import com.destroystokyo.paper.MaterialTags;
-import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.AttributeModifierAbility;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
@@ -16,8 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class BetterGoldArmour implements VisibleAbility, AttributeModifierAbility, Listener {
     @Override
@@ -54,13 +50,13 @@ public class BetterGoldArmour implements VisibleAbility, AttributeModifierAbilit
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Your adoration for gold unlocks its hidden power, making golden armor unbreakable and as strong as diamond.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Your adoration for gold unlocks its hidden power, making golden armor unbreakable and as strong as diamond.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Gold Worshipper", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Gold Worshipper";
     }
 
     @Override
@@ -72,6 +68,6 @@ public class BetterGoldArmour implements VisibleAbility, AttributeModifierAbilit
     public void onPlayerItemDamage(PlayerItemDamageEvent event) {
         if (!MaterialTags.ARMOR.isTagged(event.getItem())) return;
         if (!event.getItem().getType().toString().toLowerCase().contains("gold")) return;
-        AbilityRegister.runForAbility(event.getPlayer(), getKey(), () -> event.setCancelled(true));
+        runForAbility(event.getPlayer(), player -> event.setCancelled(true));
     }
 }

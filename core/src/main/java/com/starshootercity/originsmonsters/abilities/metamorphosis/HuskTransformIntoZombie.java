@@ -2,7 +2,6 @@ package com.starshootercity.originsmonsters.abilities.metamorphosis;
 
 import com.starshootercity.AddonLoader;
 import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import com.starshootercity.events.PlayerSwapOriginEvent;
 import net.kyori.adventure.key.Key;
@@ -18,18 +17,17 @@ import org.bukkit.event.entity.EntityAirChangeEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HuskTransformIntoZombie implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You transform into a Zombie if you're in water for too long.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You transform into a Zombie if you're in water for too long.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Metamorphosis", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Metamorphosis";
     }
 
     @Override
@@ -41,25 +39,23 @@ public class HuskTransformIntoZombie implements VisibleAbility, Listener {
 
     @EventHandler
     public void onEntityAirChange(EntityAirChangeEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            AbilityRegister.runForAbility(player, getKey(), () -> {
-                if (event.getAmount() > 0) {
-                    lastOutOfAirTime.remove(player);
-                } else {
-                    event.setAmount(0);
-                    lastOutOfAirTime.putIfAbsent(player, Bukkit.getCurrentTick());
-                    if (Bukkit.getCurrentTick() - lastOutOfAirTime.get(player) >= 300) {
-                        switchToZombie(player);
-                    }
+        runForAbility(event.getEntity(), player -> {
+            if (event.getAmount() > 0) {
+                lastOutOfAirTime.remove(player);
+            } else {
+                event.setAmount(0);
+                lastOutOfAirTime.putIfAbsent(player, Bukkit.getCurrentTick());
+                if (Bukkit.getCurrentTick() - lastOutOfAirTime.get(player) >= 300) {
+                    switchToZombie(player);
                 }
-            });
-        }
+            }
+        });
     }
 
     private void switchToZombie(Player player) {
         player.getLocation().getWorld().playSound(player, Sound.ENTITY_HUSK_CONVERTED_TO_ZOMBIE, SoundCategory.PLAYERS, 1, 1);
         MetamorphosisTemperature.setTemperature(player, Math.min(70, MetamorphosisTemperature.getTemperature(player)));
-        OriginSwapper.setOrigin(player, AddonLoader.originNameMap.get("zombie"), PlayerSwapOriginEvent.SwapReason.PLUGIN, false);
+        OriginSwapper.setOrigin(player, AddonLoader.getOrigin("zombie"), PlayerSwapOriginEvent.SwapReason.PLUGIN, false, "origin");
         player.sendMessage(Component.text("You have transformed into a zombie!")
                 .color(NamedTextColor.YELLOW));
     }

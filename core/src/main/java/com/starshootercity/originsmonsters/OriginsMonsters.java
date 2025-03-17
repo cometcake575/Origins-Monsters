@@ -5,12 +5,20 @@ import com.starshootercity.abilities.Ability;
 import com.starshootercity.originsmonsters.abilities.*;
 import com.starshootercity.originsmonsters.abilities.ZombieTouch;
 import com.starshootercity.originsmonsters.abilities.metamorphosis.*;
+import com.starshootercity.util.Metrics;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class OriginsMonsters extends OriginsAddon {
+
+    private static OriginsMonsters instance;
+
+    public static OriginsMonsters getInstance() {
+        return instance;
+    }
+
     private static MonstersNMSInvoker nmsInvoker;
 
     private static void initializeNMSInvoker() {
@@ -29,7 +37,7 @@ public class OriginsMonsters extends OriginsAddon {
             case "1.21" -> new MonstersNMSInvokerV1_21();
             case "1.21.1" -> new MonstersNMSInvokerV1_21_1();
             case "1.21.2", "1.21.3" -> new MonstersNMSInvokerV1_21_3();
-            default -> throw new IllegalStateException("Unexpected version: " + Bukkit.getMinecraftVersion() + " only versions 1.20 - 1.20.6 are supported");
+            default -> new MonstersNMSInvokerV1_21_4();
         };
     }
 
@@ -39,13 +47,11 @@ public class OriginsMonsters extends OriginsAddon {
 
     @Override
     public void onRegister() {
-        saveDefaultConfig();
+        instance = this;
         initializeNMSInvoker();
 
-        if (!getConfig().contains("creeper-explosion-breaks-blocks")) {
-            getConfig().set("creeper-explosion-breaks-blocks", true);
-            saveConfig();
-        }
+        int pluginId = 25123;
+        new Metrics(this, pluginId);
     }
 
     @Override

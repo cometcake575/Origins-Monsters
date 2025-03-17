@@ -4,7 +4,6 @@ import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.starshootercity.AddonLoader;
 import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import com.starshootercity.events.PlayerSwapOriginEvent;
 import net.kyori.adventure.key.Key;
@@ -20,18 +19,17 @@ import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TransformIntoZombifiedPiglin implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You transform into a Zombified Piglin if you're out of the Nether for too long.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You transform into a Zombified Piglin if you're out of the Nether for too long.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Metamorphosis", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Metamorphosis";
     }
 
     @Override
@@ -49,8 +47,8 @@ public class TransformIntoZombifiedPiglin implements VisibleAbility, Listener {
     @EventHandler
     public void onServerTickEnd(ServerTickEndEvent event) {
         if (event.getTickNumber() % 20 != 0) return;
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            AbilityRegister.runForAbility(player, getKey(), () -> {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            runForAbility(p, player -> {
                 if (player.getWorld() == nether) {
                     overworldTime.put(player, 0);
                 } else {
@@ -66,7 +64,7 @@ public class TransformIntoZombifiedPiglin implements VisibleAbility, Listener {
     private void switchToZombifiedPiglin(Player player) {
         overworldTime.put(player, 0);
         player.getLocation().getWorld().playSound(player, Sound.ENTITY_PIGLIN_CONVERTED_TO_ZOMBIFIED, SoundCategory.PLAYERS, 1, 1);
-        OriginSwapper.setOrigin(player, AddonLoader.originNameMap.get("zombified piglin"), PlayerSwapOriginEvent.SwapReason.PLUGIN, false);
+        OriginSwapper.setOrigin(player, AddonLoader.getOrigin("zombified piglin"), PlayerSwapOriginEvent.SwapReason.PLUGIN, false, "origin");
         player.sendMessage(Component.text("You have transformed into a Zombified Piglin!")
                 .color(NamedTextColor.YELLOW));
     }

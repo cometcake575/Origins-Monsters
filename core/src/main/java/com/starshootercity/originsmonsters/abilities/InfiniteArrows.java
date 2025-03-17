@@ -1,7 +1,5 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
@@ -11,17 +9,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class InfiniteArrows implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Arrows you shoot are not used up.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Arrows you shoot are not used up.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Infinite Arrows", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Infinite Arrows";
     }
 
     @Override
@@ -34,7 +30,7 @@ public class InfiniteArrows implements VisibleAbility, Listener {
         if (event.getConsumable() == null) return;
         if (event.getConsumable().getType() != Material.ARROW) return;
         if (event.getEntity() instanceof Player player) {
-            AbilityRegister.runForAbility(player, getKey(), () -> player.getInventory().addItem(event.getConsumable()));
+            runForAbility(player, p -> p.getInventory().addItem(event.getConsumable()));
         }
     }
 }

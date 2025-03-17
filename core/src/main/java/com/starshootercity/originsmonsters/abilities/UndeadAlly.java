@@ -1,7 +1,5 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import io.papermc.paper.tag.EntityTags;
 import net.kyori.adventure.key.Key;
@@ -21,13 +19,13 @@ import java.util.Map;
 
 public class UndeadAlly implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Undead mobs don't attack you, unless you attack them first.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Undead mobs don't attack you, unless you attack them first.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Undead Ally", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Undead Ally";
     }
 
     @Override
@@ -38,8 +36,8 @@ public class UndeadAlly implements VisibleAbility, Listener {
     @EventHandler
     public void onEntityTargetLivingEntity(EntityTargetLivingEntityEvent event) {
         if (EntityTags.UNDEADS.isTagged(event.getEntityType())) {
-            if (event.getTarget() instanceof Player player) {
-                AbilityRegister.runForAbility(player, getKey(), () -> {
+            if (event.getTarget() instanceof Player p) {
+                runForAbility(p, player -> {
                     if (!attackedEntities.getOrDefault(player, new ArrayList<>()).contains(event.getEntity())) {
                         event.setCancelled(true);
                     }

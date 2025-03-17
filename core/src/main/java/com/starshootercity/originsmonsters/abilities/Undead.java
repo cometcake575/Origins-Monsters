@@ -1,7 +1,6 @@
 package com.starshootercity.originsmonsters.abilities;
 
 import com.starshootercity.abilities.Ability;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import net.kyori.adventure.key.Key;
 import org.bukkit.entity.LivingEntity;
@@ -18,7 +17,7 @@ public class Undead implements Ability, Listener {
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        AbilityRegister.runForAbility(event.getEntity(), getKey(), () -> {
+        runForAbility(event.getEntity(), player -> {
             if (event.getDamager() instanceof LivingEntity entity) {
                 int level = entity.getActiveItem().getEnchantmentLevel(OriginsMonsters.getNMSInvoker().getSmiteEnchantment());
                 event.setDamage(event.getDamage() + (2.5 * level));

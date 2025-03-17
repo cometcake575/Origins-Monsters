@@ -1,7 +1,5 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.entity.EntityType;
@@ -10,17 +8,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class CreeperAlly implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Creepers don't attack you!", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Creepers don't attack you!";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Creeper Ally", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Creeper Ally";
     }
 
     @Override
@@ -31,6 +27,6 @@ public class CreeperAlly implements VisibleAbility, Listener {
     @EventHandler
     public void onEntityTargetLivingEntity(EntityTargetLivingEntityEvent event) {
         if (event.getEntityType() != EntityType.CREEPER) return;
-        AbilityRegister.runForAbility(event.getTarget(), getKey(), () -> event.setCancelled(true));
+        runForAbility(event.getTarget(), player -> event.setCancelled(true));
     }
 }

@@ -1,8 +1,7 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.originsmonsters.OriginsMonsters;
 import net.kyori.adventure.key.Key;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -12,17 +11,17 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Collections;
 
 public class ApplyHungerEffect implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Anything you hit gets the Hunger effect.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Anything you hit gets the Hunger effect.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Hunger", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Hunger";
     }
 
     @Override
@@ -33,7 +32,16 @@ public class ApplyHungerEffect implements VisibleAbility, Listener {
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof LivingEntity entity) {
-            AbilityRegister.runForAbility(event.getDamager(), getKey(), () -> entity.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0, false, true)));
+            runForAbility(event.getDamager(), player -> entity.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, getConfigOption(OriginsMonsters.getInstance(), effectDuration, SettingType.INTEGER), getConfigOption(OriginsMonsters.getInstance(), effectStrength, SettingType.INTEGER), false, true)));
         }
+    }
+
+    private final String effectStrength = "effect_strength";
+    private final String effectDuration = "effect_duration";
+
+    @Override
+    public void initialize() {
+        registerConfigOption(OriginsMonsters.getInstance(), effectStrength, Collections.singletonList("Strength of the hunger effect"), SettingType.INTEGER, 200);
+        registerConfigOption(OriginsMonsters.getInstance(), effectDuration, Collections.singletonList("Duration in ticks of the hunger effect"), SettingType.INTEGER, 0);
     }
 }

@@ -2,11 +2,11 @@ package com.starshootercity.originsmonsters.abilities.metamorphosis;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.cooldowns.CooldownAbility;
 import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.events.PlayerSwapOriginEvent;
 import com.starshootercity.originsmonsters.OriginsMonsters;
+import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MetamorphosisTemperature implements CooldownAbility, Listener {
@@ -40,13 +41,13 @@ public class MetamorphosisTemperature implements CooldownAbility, Listener {
     @EventHandler
     public void onServerTickEnd(ServerTickEndEvent event) {
         if (event.getTickNumber() % 20 != 0) return;
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            AbilityRegister.runForAbility(player, getKey(), () -> {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            runForAbility(p, player -> {
                 double blockTemp = player.getLocation().getBlock().getTemperature();
                 if (blockTemp <= 0.15) {
-                    setTemperature(player, getTemperature(player) - 1);
+                    setTemperature(player, getTemperature(player) - getConfigOption(OriginsMonsters.getInstance(), speedMultiplier, ConfigManager.SettingType.INTEGER));
                 } else if (blockTemp >= 1.75 && !OriginsReborn.getNMSInvoker().isUnderWater(player)) {
-                    setTemperature(player, getTemperature(player) + 1);
+                    setTemperature(player, getTemperature(player) + getConfigOption(OriginsMonsters.getInstance(), speedMultiplier, ConfigManager.SettingType.INTEGER));
                 }
             });
         }
@@ -65,5 +66,12 @@ public class MetamorphosisTemperature implements CooldownAbility, Listener {
     @Override
     public Cooldowns.CooldownInfo getCooldownInfo() {
         return new Cooldowns.CooldownInfo(100, "metamorphosis_temperature", true, true);
+    }
+
+    private final String speedMultiplier = "speed_multiplier";
+
+    @Override
+    public void initialize() {
+        registerConfigOption(OriginsMonsters.getInstance(), speedMultiplier, Collections.singletonList("The speed at which temperature should change"), ConfigManager.SettingType.INTEGER, 1);
     }
 }

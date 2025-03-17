@@ -1,7 +1,5 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.entity.Entity;
@@ -21,13 +19,13 @@ import java.util.Map;
 
 public class PiglinAlly implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Piglins don't attack you, unless you attack them first.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Piglins don't attack you, unless you attack them first.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Piglin Ally", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Piglin Ally";
     }
 
     @Override
@@ -38,13 +36,11 @@ public class PiglinAlly implements VisibleAbility, Listener {
     @EventHandler
     public void onEntityTargetLivingEntity(EntityTargetLivingEntityEvent event) {
         if (event.getEntityType() == EntityType.PIGLIN || event.getEntityType() == EntityType.PIGLIN_BRUTE) {
-            if (event.getTarget() instanceof Player player) {
-                AbilityRegister.runForAbility(player, getKey(), () -> {
-                    if (!attackedEntities.getOrDefault(player, new ArrayList<>()).contains(event.getEntity())) {
-                        event.setCancelled(true);
-                    }
-                });
-            }
+            runForAbility(event.getTarget(), player -> {
+                if (!attackedEntities.getOrDefault(player, new ArrayList<>()).contains(event.getEntity())) {
+                    event.setCancelled(true);
+                }
+            });
         }
     }
 

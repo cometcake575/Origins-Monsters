@@ -1,8 +1,8 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.originsmonsters.OriginsMonsters;
+import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -10,17 +10,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ZombifiedPiglinAllies implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Nearby Zombified Piglins will attack anything that that attacks you or that you attack.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Nearby Zombified Piglins will attack anything that that attacks you or that you attack.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Terrifying Armies", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Terrifying Armies";
     }
 
     @Override
@@ -40,8 +41,9 @@ public class ZombifiedPiglinAllies implements VisibleAbility, Listener {
                 go = false;
             }
             if (go) {
-                AbilityRegister.runForAbility(player, getKey(), () -> {
-                    List<Entity> entities = player.getNearbyEntities(32, 32, 32);
+                runForAbility(player, pl -> {
+                    int ran = getConfigOption(OriginsMonsters.getInstance(), range, ConfigManager.SettingType.INTEGER);
+                    List<Entity> entities = pl.getNearbyEntities(ran, ran, ran);
                     entities.removeIf(entity1 -> entity1.getType() != EntityType.ZOMBIFIED_PIGLIN);
                     for (Entity entity1 : entities) {
                         if (entity1 instanceof PigZombie pigZombie) {
@@ -58,8 +60,9 @@ public class ZombifiedPiglinAllies implements VisibleAbility, Listener {
         if (event.getDamager() instanceof LivingEntity e) entity = e;
         else if (event.getDamager() instanceof Projectile p && p.getShooter() instanceof LivingEntity e) entity = e;
         else return;
-        AbilityRegister.runForAbility(event.getEntity(), getKey(), () -> {
-            List<Entity> entities = event.getEntity().getNearbyEntities(32, 32, 32);
+        runForAbility(event.getEntity(), player -> {
+            int ran = getConfigOption(OriginsMonsters.getInstance(), range, ConfigManager.SettingType.INTEGER);
+            List<Entity> entities = player.getNearbyEntities(ran, ran, ran);
             entities.removeIf(entity1 -> entity1.getType() != EntityType.ZOMBIFIED_PIGLIN);
             for (Entity entity1 : entities) {
                 if (entity1 instanceof PigZombie pigZombie) {
@@ -68,5 +71,12 @@ public class ZombifiedPiglinAllies implements VisibleAbility, Listener {
                 }
             }
         });
+    }
+
+    private final String range = "range";
+
+    @Override
+    public void initialize() {
+        registerConfigOption(OriginsMonsters.getInstance(), range, Collections.singletonList("Range to check for Zombified Piglins to attack a target"), ConfigManager.SettingType.INTEGER, 32);
     }
 }

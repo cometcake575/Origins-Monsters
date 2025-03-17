@@ -1,7 +1,5 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.event.EventHandler;
@@ -9,22 +7,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class HalfMaxSaturation implements VisibleAbility, Listener {
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent event) {
-        AbilityRegister.runForAbility(event.getEntity(), getKey(), () -> event.getEntity().setSaturation(Math.min(event.getEntity().getSaturation(), (float) event.getEntity().getFoodLevel() / 2)));
+        runForAbility(event.getEntity(), player -> player.setSaturation(Math.min(player.getSaturation(), (float) player.getFoodLevel() / 2)));
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You can only hold half as much saturation as a human.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You can only hold half as much saturation as a human.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Poor Digestion", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Poor Digestion";
     }
 
     @Override

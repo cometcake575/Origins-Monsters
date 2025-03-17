@@ -1,11 +1,9 @@
 package com.starshootercity.originsmonsters.abilities;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
-import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
 import com.starshootercity.SavedPotionEffect;
-import com.starshootercity.ShortcutUtils;
-import com.starshootercity.abilities.AbilityRegister;
+import com.starshootercity.util.ShortcutUtils;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
@@ -19,7 +17,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SwimSpeed implements Listener, VisibleAbility {
@@ -27,8 +24,8 @@ public class SwimSpeed implements Listener, VisibleAbility {
 
     @EventHandler
     public void onServerTickEnd(ServerTickEndEvent event) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            AbilityRegister.runForAbility(player, getKey(), () -> {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            runForAbility(p, player -> {
                 if (OriginsReborn.getNMSInvoker().isUnderWater(player)) {
                     PotionEffect effect = player.getPotionEffect(PotionEffectType.DOLPHINS_GRACE);
                     boolean ambient = false;
@@ -82,12 +79,12 @@ public class SwimSpeed implements Listener, VisibleAbility {
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Your underwater speed is increased.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Your underwater speed is increased.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Fast Swimmer", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Fast Swimmer";
     }
 }

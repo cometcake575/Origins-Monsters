@@ -1,7 +1,5 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.event.EventHandler;
@@ -13,13 +11,13 @@ import java.util.List;
 
 public class DoubleFireDamage implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You take double damage from all sources of fire.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You take double damage from all sources of fire.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Frozen Skin", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Frozen Skin";
     }
 
     @Override
@@ -35,7 +33,7 @@ public class DoubleFireDamage implements VisibleAbility, Listener {
                 EntityDamageEvent.DamageCause.FIRE_TICK,
                 EntityDamageEvent.DamageCause.LAVA
         ).contains(event.getCause())) {
-            AbilityRegister.runForAbility(event.getEntity(), getKey(), () -> event.setDamage(event.getDamage() * 2));
+            runForAbility(event.getEntity(), player -> event.setDamage(event.getDamage() * 2));
         }
     }
 }

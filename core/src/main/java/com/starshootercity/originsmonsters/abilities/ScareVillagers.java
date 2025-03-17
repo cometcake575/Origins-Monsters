@@ -1,14 +1,15 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -18,8 +19,6 @@ import org.bukkit.event.world.EntitiesLoadEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class ScareVillagers implements VisibleAbility, Listener {
     @Override
     public @NotNull Key getKey() {
@@ -27,13 +26,13 @@ public class ScareVillagers implements VisibleAbility, Listener {
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Villagers are scared of you and refuse to trade with you.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Villagers are scared of you and refuse to trade with you.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Terrifying Monster", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Terrifying Monster";
     }
 
     @EventHandler
@@ -53,7 +52,7 @@ public class ScareVillagers implements VisibleAbility, Listener {
     }
 
     public void fixVillager(Villager villager) {
-        Bukkit.getMobGoals().addGoal(villager, 0, OriginsMonsters.getNMSInvoker().getVillagerAfraidGoal(villager, player -> AbilityRegister.hasAbility(player, getKey())));
+        Bukkit.getMobGoals().addGoal(villager, 0, OriginsMonsters.getNMSInvoker().getVillagerAfraidGoal(villager, this::hasAbility));
     }
 
     private final NamespacedKey hitByPlayerKey = new NamespacedKey(OriginsReborn.getInstance(), "hit-by-player");
@@ -67,14 +66,14 @@ public class ScareVillagers implements VisibleAbility, Listener {
                 else return;
             } else if (event.getDamager() instanceof org.bukkit.entity.Player damager) player = damager;
             else return;
-            AbilityRegister.runForAbility(player, getKey(), () -> event.getEntity().getPersistentDataContainer().set(hitByPlayerKey, PersistentDataType.STRING, player.getName()));
+            runForAbility(player, p -> event.getEntity().getPersistentDataContainer().set(hitByPlayerKey, PersistentDataType.STRING, p.getName()));
         }
     }
 
     @EventHandler
     public void onPlayerInteractAtEntity(PlayerInteractEntityEvent event) {
         if (event.getRightClicked() instanceof Villager villager) {
-            AbilityRegister.runForAbility(event.getPlayer(), getKey(), () -> {
+            runForAbility(event.getPlayer(), player -> {
                 event.setCancelled(true);
                 villager.shakeHead();
             });

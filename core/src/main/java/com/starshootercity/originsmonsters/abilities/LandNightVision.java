@@ -1,11 +1,8 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
 import com.starshootercity.abilities.CatVision;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class LandNightVision extends CatVision {
     @Override
@@ -14,12 +11,12 @@ public class LandNightVision extends CatVision {
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You can see in the dark when on land.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You can see in the dark when on land.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Dark Sight", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Dark Sight";
     }
 }

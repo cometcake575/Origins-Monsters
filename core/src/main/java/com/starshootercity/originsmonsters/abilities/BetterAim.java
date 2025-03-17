@@ -1,7 +1,5 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import net.kyori.adventure.key.Key;
@@ -10,17 +8,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Collections;
 
 public class BetterAim implements VisibleAbility, Listener {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("Your aim is more accurate than humans.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "Your aim is more accurate than humans.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Sniper", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Sniper";
     }
 
     @Override
@@ -30,8 +28,15 @@ public class BetterAim implements VisibleAbility, Listener {
 
     @EventHandler
     public void onEntityShootBow(EntityShootBowEvent event) {
-        AbilityRegister.runForAbility(event.getEntity(), getKey(), () -> {
-            OriginsMonsters.getNMSInvoker().launchArrow(event.getProjectile(), event.getEntity(), 0, 3 * event.getForce(), 0);
+        runForAbility(event.getEntity(), player -> {
+            OriginsMonsters.getNMSInvoker().launchArrow(event.getProjectile(), player, 0, 3 * event.getForce(), getConfigOption(OriginsMonsters.getInstance(), divergence, SettingType.FLOAT));
         });
+    }
+
+    private final String divergence = "divergence";
+
+    @Override
+    public void initialize() {
+        registerConfigOption(OriginsMonsters.getInstance(), divergence, Collections.singletonList("Divergence of arrows fired"), SettingType.FLOAT, 0f);
     }
 }

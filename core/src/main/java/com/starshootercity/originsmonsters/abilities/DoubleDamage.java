@@ -1,25 +1,22 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
+import com.starshootercity.OriginsReborn;
+import com.starshootercity.abilities.AttributeModifierAbility;
 import com.starshootercity.abilities.VisibleAbility;
 import net.kyori.adventure.key.Key;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class DoubleDamage implements VisibleAbility, Listener {
+public class DoubleDamage implements VisibleAbility, AttributeModifierAbility {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You deal twice as much damage as a normal player.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You deal twice as much damage as a normal player.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Powerful Swings", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Powerful Swings";
     }
 
     @Override
@@ -27,8 +24,18 @@ public class DoubleDamage implements VisibleAbility, Listener {
         return Key.key("monsterorigins:double_damage");
     }
 
-    @EventHandler
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        AbilityRegister.runForAbility(event.getDamager(), getKey(), () -> event.setDamage(event.getDamage() * 3));
+    @Override
+    public @NotNull Attribute getAttribute() {
+        return OriginsReborn.getNMSInvoker().getAttackDamageAttribute();
+    }
+
+    @Override
+    public double getAmount() {
+        return 1;
+    }
+
+    @Override
+    public AttributeModifier.Operation getOperation() {
+        return AttributeModifier.Operation.MULTIPLY_SCALAR_1;
     }
 }

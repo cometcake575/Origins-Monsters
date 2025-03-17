@@ -1,8 +1,6 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.AttributeModifierAbility;
 import com.starshootercity.abilities.VisibleAbility;
 import com.starshootercity.cooldowns.CooldownAbility;
@@ -34,13 +32,13 @@ import java.util.Map;
 
 public class TridentExpert implements VisibleAbility, Listener, AttributeModifierAbility, CooldownAbility {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You're a master of the trident, dealing +2 damage when you throw it, and +2 melee damage with it. You can also use channeling without thunder, and use riptide without rain/water at the price of extra durability.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You're a master of the trident, dealing +2 damage when you throw it, and +2 melee damage with it. You can also use channeling without thunder, and use riptide without rain/water at the price of extra durability.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Trident Expert", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Trident Expert";
     }
 
     @Override
@@ -111,10 +109,10 @@ public class TridentExpert implements VisibleAbility, Listener, AttributeModifie
     @EventHandler
     public void onPlayerLeftClick(PlayerLeftClickEvent event) {
         if (List.of(Material.AIR, Material.TRIDENT).contains(event.getPlayer().getInventory().getItemInMainHand().getType())) {
-            AbilityRegister.runForAbility(event.getPlayer(), getKey(), () -> {
-                if (hasCooldown(event.getPlayer())) return;
-                setCooldown(event.getPlayer());
-                lastTridentEnabledTime.put(event.getPlayer(), Bukkit.getCurrentTick());
+            runForAbility(event.getPlayer(), player -> {
+                if (hasCooldown(player)) return;
+                setCooldown(player);
+                lastTridentEnabledTime.put(player, Bukkit.getCurrentTick());
             });
         }
     }
@@ -138,8 +136,8 @@ public class TridentExpert implements VisibleAbility, Listener, AttributeModifie
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
         if (event.getEntity().getShooter() instanceof Player player) {
             if (event.getEntity() instanceof Trident trident) {
-                AbilityRegister.runForAbility(player, getKey(), () -> {
-                    if (Bukkit.getCurrentTick() - lastTridentEnabledTime.getOrDefault(player, Bukkit.getCurrentTick() - 400) < 400) {
+                runForAbility(player, p -> {
+                    if (Bukkit.getCurrentTick() - lastTridentEnabledTime.getOrDefault(p, Bukkit.getCurrentTick() - 400) < 400) {
                         trident.setDamage(trident.getDamage() + 2);
                     }
                 });
@@ -151,8 +149,8 @@ public class TridentExpert implements VisibleAbility, Listener, AttributeModifie
     public void onProjectileHit(ProjectileHitEvent event) {
         if (event.getHitEntity() == null) return;
         if (event.getEntity().getShooter() instanceof Player player && event.getEntity() instanceof Trident trident) {
-            AbilityRegister.runForAbility(player, getKey(), () -> {
-                if (Bukkit.getCurrentTick() - lastTridentEnabledTime.getOrDefault(player, Bukkit.getCurrentTick() - 400) < 400) {
+            runForAbility(player, p -> {
+                if (Bukkit.getCurrentTick() - lastTridentEnabledTime.getOrDefault(p, Bukkit.getCurrentTick() - 400) < 400) {
                     if (trident.getItemStack().getItemMeta().hasEnchant(Enchantment.CHANNELING)) {
                         event.getHitEntity().getWorld().strikeLightning(event.getHitEntity().getLocation());
                     }

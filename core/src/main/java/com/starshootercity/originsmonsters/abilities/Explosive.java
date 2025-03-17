@@ -1,11 +1,10 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.abilities.VisibleAbility;
 import com.starshootercity.cooldowns.CooldownAbility;
 import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.originsmonsters.OriginsMonsters;
+import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,19 +13,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Explosive implements VisibleAbility, Listener, CooldownAbility {
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getDescription() {
-        return OriginSwapper.LineData.makeLineFor("You can sacrifice some of your health to create an explosion every 15 seconds.", OriginSwapper.LineData.LineComponent.LineType.DESCRIPTION);
+    public String description() {
+        return "You can sacrifice some of your health to create an explosion every 15 seconds.";
     }
 
     @Override
-    public @NotNull List<OriginSwapper.LineData.LineComponent> getTitle() {
-        return OriginSwapper.LineData.makeLineFor("Explosive", OriginSwapper.LineData.LineComponent.LineType.TITLE);
+    public String title() {
+        return "Explosive";
     }
 
     @Override
@@ -37,17 +36,28 @@ public class Explosive implements VisibleAbility, Listener, CooldownAbility {
 
     @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
-        AbilityRegister.runForAbility(event.getPlayer(), getKey(), () -> {
-            if (hasCooldown(event.getPlayer())) return;
+        runForAbility(event.getPlayer(), player -> {
+            if (hasCooldown(player)) return;
             if (!event.isSneaking()) return;
-            if (Bukkit.getCurrentTick() - lastToggledSneak.getOrDefault(event.getPlayer(), Bukkit.getCurrentTick() - 11) <= 10) {
-                setCooldown(event.getPlayer());
-                event.getPlayer().getLocation().createExplosion(event.getPlayer(), 3, false, OriginsMonsters.getInstance().getConfig().getBoolean("creeper-explosion-breaks-blocks", true));
-                OriginsMonsters.getNMSInvoker().dealExplosionDamage(event.getPlayer(), 8);
+            if (Bukkit.getCurrentTick() - lastToggledSneak.getOrDefault(player, Bukkit.getCurrentTick() - 11) <= 10) {
+                setCooldown(player);
+                player.getLocation().createExplosion(player, 3, getConfigOption(OriginsMonsters.getInstance(), causeFire, ConfigManager.SettingType.BOOLEAN), getConfigOption(OriginsMonsters.getInstance(), breakBlocks, ConfigManager.SettingType.BOOLEAN));
+                OriginsMonsters.getNMSInvoker().dealExplosionDamage(player, getConfigOption(OriginsMonsters.getInstance(), healthLost, ConfigManager.SettingType.INTEGER));
             } else {
-                lastToggledSneak.put(event.getPlayer(), Bukkit.getCurrentTick());
+                lastToggledSneak.put(player, Bukkit.getCurrentTick());
             }
         });
+    }
+
+    private final String breakBlocks = "break_blocks";
+    private final String causeFire = "cause_fire";
+    private final String healthLost = "health_lost";
+
+    @Override
+    public void initialize() {
+        registerConfigOption(OriginsMonsters.getInstance(), breakBlocks, Collections.singletonList("Whether the explosion should break blocks"), ConfigManager.SettingType.BOOLEAN, true);
+        registerConfigOption(OriginsMonsters.getInstance(), causeFire, Collections.singletonList("Whether the explosion should cause fire"), ConfigManager.SettingType.BOOLEAN, false);
+        registerConfigOption(OriginsMonsters.getInstance(), healthLost, Collections.singletonList("How much damage the player should take when creating an explosion"), ConfigManager.SettingType.INTEGER, 8);
     }
 
     @Override
