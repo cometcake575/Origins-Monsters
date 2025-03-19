@@ -1,6 +1,6 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;

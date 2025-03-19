@@ -2,8 +2,8 @@ package com.starshootercity.originsmonsters.abilities;
 
 import com.destroystokyo.paper.MaterialTags;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.AttributeModifierAbility;
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.AttributeModifierAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -22,12 +22,7 @@ public class BetterGoldArmour implements VisibleAbility, AttributeModifierAbilit
     }
 
     @Override
-    public double getAmount() {
-        return 0;
-    }
-
-    @Override
-    public double getChangedAmount(Player player) {
+    public double getAmount(Player player) {
         int amount = 0;
         for (ItemStack item : player.getEquipment().getArmorContents()) {
             if (item == null) continue;

@@ -1,6 +1,6 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.abilities.Ability;
+import com.starshootercity.abilities.types.Ability;
 import net.kyori.adventure.key.Key;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

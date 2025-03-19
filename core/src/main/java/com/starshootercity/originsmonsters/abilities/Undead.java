@@ -1,6 +1,6 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.abilities.Ability;
+import com.starshootercity.abilities.types.Ability;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import net.kyori.adventure.key.Key;
 import org.bukkit.entity.LivingEntity;

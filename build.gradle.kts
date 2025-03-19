@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.starshootercity.originsmonsters"
-version = "1.1.21"
+version = "1.1.23"
 
 repositories {
     mavenCentral()

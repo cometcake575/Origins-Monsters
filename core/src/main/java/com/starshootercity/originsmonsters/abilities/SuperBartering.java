@@ -1,6 +1,6 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
@@ -13,6 +13,7 @@ import org.bukkit.event.entity.PiglinBarterEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.loot.LootContext;
 import org.bukkit.loot.LootTables;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -70,7 +71,7 @@ public class SuperBartering implements VisibleAbility, Listener {
     private final String maximumAmount = "maximum_amount";
 
     @Override
-    public void initialize() {
+    public void initialize(JavaPlugin plugin) {
         registerConfigOption(OriginsMonsters.getInstance(), minimumAmount, Collections.singletonList("The minimum number of extra barters"), ConfigManager.SettingType.INTEGER, 1);
         registerConfigOption(OriginsMonsters.getInstance(), maximumAmount, Collections.singletonList("The maximum number of extra barters"), ConfigManager.SettingType.INTEGER, 3);
     }

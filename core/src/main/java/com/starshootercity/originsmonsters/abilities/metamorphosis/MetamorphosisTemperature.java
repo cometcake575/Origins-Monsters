@@ -2,7 +2,7 @@ package com.starshootercity.originsmonsters.abilities.metamorphosis;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.cooldowns.CooldownAbility;
+import com.starshootercity.abilities.types.CooldownAbility;
 import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.events.PlayerSwapOriginEvent;
 import com.starshootercity.originsmonsters.OriginsMonsters;
@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -71,7 +72,7 @@ public class MetamorphosisTemperature implements CooldownAbility, Listener {
     private final String speedMultiplier = "speed_multiplier";
 
     @Override
-    public void initialize() {
+    public void initialize(JavaPlugin plugin) {
         registerConfigOption(OriginsMonsters.getInstance(), speedMultiplier, Collections.singletonList("The speed at which temperature should change"), ConfigManager.SettingType.INTEGER, 1);
     }
 }

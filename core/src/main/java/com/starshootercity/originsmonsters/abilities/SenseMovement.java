@@ -2,7 +2,7 @@ package com.starshootercity.originsmonsters.abilities;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;

@@ -1,6 +1,6 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
@@ -8,6 +8,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +42,7 @@ public class ApplyWitherEffect implements VisibleAbility, Listener {
     private final String effectDuration = "effect_duration";
 
     @Override
-    public void initialize() {
+    public void initialize(JavaPlugin plugin) {
         registerConfigOption(OriginsMonsters.getInstance(), effectStrength, Collections.singletonList("Strength of the wither effect"), ConfigManager.SettingType.INTEGER, 200);
         registerConfigOption(OriginsMonsters.getInstance(), effectDuration, Collections.singletonList("Duration in ticks of the wither effect"), ConfigManager.SettingType.INTEGER, 0);
     }

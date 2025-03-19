@@ -1,7 +1,7 @@
 package com.starshootercity.originsmonsters.abilities;
 
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
@@ -9,6 +9,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,7 +44,7 @@ public class SlownessArrows implements VisibleAbility, Listener {
     private final String amplifier = "weakness_strength";
 
     @Override
-    public void initialize() {
+    public void initialize(JavaPlugin plugin) {
         registerConfigOption(OriginsMonsters.getInstance(), duration, Collections.singletonList("The duration of the weakness effect in ticks"), ConfigManager.SettingType.INTEGER, 600);
         registerConfigOption(OriginsMonsters.getInstance(), amplifier, Collections.singletonList("The strength of the weakness effect"), ConfigManager.SettingType.INTEGER, 0);
     }

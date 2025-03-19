@@ -1,6 +1,6 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
@@ -8,6 +8,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -76,7 +77,7 @@ public class ZombifiedPiglinAllies implements VisibleAbility, Listener {
     private final String range = "range";
 
     @Override
-    public void initialize() {
+    public void initialize(JavaPlugin plugin) {
         registerConfigOption(OriginsMonsters.getInstance(), range, Collections.singletonList("Range to check for Zombified Piglins to attack a target"), ConfigManager.SettingType.INTEGER, 32);
     }
 }

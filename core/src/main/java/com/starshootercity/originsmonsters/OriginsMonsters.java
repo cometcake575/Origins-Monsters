@@ -1,7 +1,7 @@
 package com.starshootercity.originsmonsters;
 
 import com.starshootercity.OriginsAddon;
-import com.starshootercity.abilities.Ability;
+import com.starshootercity.abilities.types.Ability;
 import com.starshootercity.originsmonsters.abilities.*;
 import com.starshootercity.originsmonsters.abilities.ZombieTouch;
 import com.starshootercity.originsmonsters.abilities.metamorphosis.*;
@@ -60,7 +60,7 @@ public class OriginsMonsters extends OriginsAddon {
     }
 
     @Override
-    public @NotNull List<Ability> getAbilities() {
+    public @NotNull List<Ability> getRegisteredAbilities() {
         return List.of(
                 new CreeperAlly(),
                 new Explosive(),

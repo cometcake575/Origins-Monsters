@@ -1,7 +1,7 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.abilities.VisibleAbility;
-import com.starshootercity.cooldowns.CooldownAbility;
+import com.starshootercity.abilities.types.CooldownAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.originsmonsters.OriginsMonsters;
 import com.starshootercity.util.config.ConfigManager;
@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -54,7 +55,7 @@ public class Explosive implements VisibleAbility, Listener, CooldownAbility {
     private final String healthLost = "health_lost";
 
     @Override
-    public void initialize() {
+    public void initialize(JavaPlugin plugin) {
         registerConfigOption(OriginsMonsters.getInstance(), breakBlocks, Collections.singletonList("Whether the explosion should break blocks"), ConfigManager.SettingType.BOOLEAN, true);
         registerConfigOption(OriginsMonsters.getInstance(), causeFire, Collections.singletonList("Whether the explosion should cause fire"), ConfigManager.SettingType.BOOLEAN, false);
         registerConfigOption(OriginsMonsters.getInstance(), healthLost, Collections.singletonList("How much damage the player should take when creating an explosion"), ConfigManager.SettingType.INTEGER, 8);

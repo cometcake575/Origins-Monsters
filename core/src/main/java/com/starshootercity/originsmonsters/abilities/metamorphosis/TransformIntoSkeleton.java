@@ -3,7 +3,7 @@ package com.starshootercity.originsmonsters.abilities.metamorphosis;
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.starshootercity.AddonLoader;
 import com.starshootercity.OriginSwapper;
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import com.starshootercity.events.PlayerSwapOriginEvent;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;

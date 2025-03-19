@@ -2,8 +2,9 @@ package com.starshootercity.originsmonsters.abilities;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.starshootercity.OriginsReborn;
-import com.starshootercity.abilities.VisibleAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import com.starshootercity.originsmonsters.OriginsMonsters;
+import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -11,6 +12,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +45,7 @@ public class FearCats implements VisibleAbility, Listener {
                 entities.removeIf(entity -> entity.getType() != EntityType.CAT);
                 if (!entities.isEmpty()) {
                     player.addPotionEffect(new PotionEffect(OriginsReborn.getNMSInvoker().getNauseaEffect(), 200, 0, false, true));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 200, getConfigOption(OriginsMonsters.getInstance(), weaknessStrength, SettingType.INTEGER), false, true));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 200, getConfigOption(OriginsMonsters.getInstance(), weaknessStrength, ConfigManager.SettingType.INTEGER), false, true));
                 }
             });
         }
@@ -52,7 +54,7 @@ public class FearCats implements VisibleAbility, Listener {
     private final String weaknessStrength = "weakness_strength";
 
     @Override
-    public void initialize() {
-        registerConfigOption(OriginsMonsters.getInstance(), weaknessStrength, Collections.singletonList("How strong the weakness effect should be"), SettingType.INTEGER, 0);
+    public void initialize(JavaPlugin plugin) {
+        registerConfigOption(OriginsMonsters.getInstance(), weaknessStrength, Collections.singletonList("How strong the weakness effect should be"), ConfigManager.SettingType.INTEGER, 0);
     }
 }

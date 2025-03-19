@@ -1,7 +1,7 @@
 package com.starshootercity.originsmonsters.abilities;
 
-import com.starshootercity.abilities.VisibleAbility;
-import com.starshootercity.cooldowns.CooldownAbility;
+import com.starshootercity.abilities.types.CooldownAbility;
+import com.starshootercity.abilities.types.VisibleAbility;
 import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.events.PlayerLeftClickEvent;
 import com.starshootercity.originsmonsters.OriginsMonsters;
@@ -14,6 +14,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class SonicBoom implements VisibleAbility, Listener, CooldownAbility {
     private final String damageDealt = "damage_dealt";
 
     @Override
-    public void initialize() {
+    public void initialize(JavaPlugin plugin) {
         registerConfigOption(OriginsMonsters.getInstance(), damageDealt, Collections.singletonList("The amount of damage the Sonic Boom should deal"), ConfigManager.SettingType.INTEGER, 15);
     }
 }
